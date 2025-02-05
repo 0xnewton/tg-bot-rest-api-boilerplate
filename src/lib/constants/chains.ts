@@ -3,7 +3,7 @@ import {
   ETH_BASE_SEPOLIA,
   getChainERC20Tokens,
 } from "./tokens";
-import { Chain, NetworkEnum, NODE_ENV } from "./types";
+import { Chain, NetworkEnum, NODE_ENV } from "../types";
 
 export const SUPPORTED_CHAINS: Chain[] = [
   {

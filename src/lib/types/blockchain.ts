@@ -1,8 +1,3 @@
-export enum NODE_ENV {
-  DEVELOPMENT = "development",
-  PRODUCTION = "production",
-}
-
 export type NativeAddress = "native";
 
 export interface Chain {
