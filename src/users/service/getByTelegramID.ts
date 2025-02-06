@@ -1,6 +1,6 @@
-import { FetchResult } from "../../lib/types";
+import { FetchResult, TelegramUserID } from "../../lib/types";
 import { getUserByTelegramUserID } from "../db";
-import { TelegramUserID, User } from "../types";
+import { User } from "../types";
 
 export const getByTelegramID = async (
   telegramID: TelegramUserID
