@@ -41,9 +41,17 @@ export const updateUserClaims = async (
   await auth.setCustomUserClaims(uid, claims);
 };
 
-export const getUserByID = async (uid: UserID): Promise<UserRecord> => {
+export const getUserByID = async (uid: UserID): Promise<UserRecord | null> => {
   logger.info("Fetching user by uid", { uid });
-  const user = await auth.getUser(uid);
+  let user: UserRecord | null = null;
+  try {
+    user = await auth.getUser(uid);
+  } catch (err: any) {
+    if (err?.code === "auth/user-not-found") {
+      return null;
+    }
+    throw err;
+  }
 
   return user;
 };
