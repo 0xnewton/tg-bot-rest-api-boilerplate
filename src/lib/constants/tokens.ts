@@ -1,4 +1,4 @@
-import { ERC20Token, NativeEVMToken, NetworkEnum, Token } from "./types";
+import { ERC20Token, NativeEVMToken, NetworkEnum, Token } from "../types";
 
 export const ETH_BASE_MAINNET: NativeEVMToken = {
   address: "native",
