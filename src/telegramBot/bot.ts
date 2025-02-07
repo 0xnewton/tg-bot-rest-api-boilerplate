@@ -35,7 +35,9 @@ export const initializeBot = (apiKey: string): TelegrafBot => {
     await botService.signup(ctx);
   });
 
-  bot.command;
+  bot.command(Commands.generateAPIKey, async (ctx: Context) => {
+    await botService.generateAPIKey(ctx);
+  });
 
   return bot;
 };

@@ -1,3 +1,4 @@
 import { signup } from "./signup";
+import { generateAPIKey } from "./generateAPIKey";
 
-export { signup };
+export { signup, generateAPIKey };
