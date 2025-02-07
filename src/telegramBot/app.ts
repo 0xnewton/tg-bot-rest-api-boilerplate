@@ -1,12 +1,12 @@
 import { onRequest } from "firebase-functions/v2/https";
-import { tgBotAPIKey, tgWebhookSecretToken } from "../lib/core";
+import { apiKeySalt, tgBotAPIKey, tgWebhookSecretToken } from "../lib/core";
 import { initializeBot } from "./bot";
 import { validateSecretToken } from "./middleware/validateSecretToken";
 import { logger } from "firebase-functions";
 
 // Set up webhook for Telegram bot
 export const app = onRequest(
-  { secrets: [tgBotAPIKey, tgWebhookSecretToken], minInstances: 1 },
+  { secrets: [tgBotAPIKey, tgWebhookSecretToken, apiKeySalt], minInstances: 1 },
   (req, res) => {
     try {
       // Validate API Key

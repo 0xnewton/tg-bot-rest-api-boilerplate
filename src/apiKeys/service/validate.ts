@@ -1,5 +1,5 @@
 import { logger } from "firebase-functions";
-import { hashWithSHA512 } from "../../lib/core";
+import { hashWithSHA256 } from "../../lib/core";
 import { getAPIKeyByHash } from "../db";
 import * as organizationService from "../../organizations/service";
 import { FetchResult } from "../../lib/types";
@@ -16,7 +16,7 @@ export const validate = async (apiKey: string): Promise<ValidateResponse> => {
   });
 
   // Hash it
-  const hash = hashWithSHA512(apiKey);
+  const hash = hashWithSHA256(apiKey);
 
   // Look up in the database
   const key = await getAPIKeyByHash({ hash });

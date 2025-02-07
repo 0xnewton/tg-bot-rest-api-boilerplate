@@ -69,6 +69,7 @@ export const generateAPIKey = async (ctx: BotContext) => {
     logger.error("Error generating API key", {
       errMessage: err?.message,
       code: err?.code,
+      err,
     });
     ctx.reply(err?.message || SOMETHING_WENT_WRONG_MESSAGE);
     return;
