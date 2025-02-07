@@ -1,5 +1,5 @@
 import { Context } from "telegraf";
-import { CustomClaims, Role, User, UserRole } from "../users/types";
+import { CustomClaims, User, UserRole } from "../users/types";
 import { logger } from "firebase-functions";
 import * as userService from "../users/service";
 import { FetchResult, OrganizationID, TelegramUserID } from "../lib/types";

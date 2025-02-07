@@ -26,6 +26,11 @@ export const validate = async (apiKey: string): Promise<ValidateResponse> => {
     throw new Error("Unauthorized");
   }
 
+  if (key.data.revokedAt) {
+    logger.info("API key is revoked", { id: key.data.id });
+    throw new Error("Unauthorized");
+  }
+
   logger.info("API key found", {
     id: key.data.id,
     userID: key.data.createdAt,
