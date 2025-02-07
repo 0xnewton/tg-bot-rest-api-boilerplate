@@ -13,8 +13,17 @@ const commands = [
   },
 ];
 
-export const initializeBot = (apiKey: string) => {
-  const bot = new Telegraf<Context>(apiKey);
+type TelegrafBot = Telegraf<Context>;
+
+// Define as a singleton
+let bot: TelegrafBot | null = null;
+
+export const initializeBot = (apiKey: string): TelegrafBot => {
+  if (bot) {
+    return bot;
+  }
+
+  bot = new Telegraf<Context>(apiKey);
 
   bot.telegram.setMyCommands(commands);
 
