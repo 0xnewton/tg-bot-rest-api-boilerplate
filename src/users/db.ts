@@ -59,6 +59,8 @@ export const createUserWithOrganization = async (
   const nowTimestamp = Date.now();
   // Run a transaction to batch write users
   const userRef = getUserRef(params.id);
+  const organizationRef = getNewOrganizationRef();
+
   const userBody: User = {
     id: params.id,
     email: params.email,
@@ -70,7 +72,6 @@ export const createUserWithOrganization = async (
     telegramChatID: params.telegramChatID,
     telegramUsername: params.telegramUsername,
   };
-  const organizationRef = getNewOrganizationRef();
   const organizationBody: Organization = {
     id: organizationRef.id as OrganizationID,
     foundingUserID: params.id,

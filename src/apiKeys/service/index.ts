@@ -1,7 +1,2 @@
-import { create } from "./create";
-import { validate } from "./validate";
-
-export const ApiKeys = {
-  create,
-  validate,
-};
+export { create } from "./create";
+export { validate } from "./validate";

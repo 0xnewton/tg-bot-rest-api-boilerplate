@@ -15,10 +15,12 @@ export class UserExistsError extends Error {
 
 export class TGUserNotFoundError extends Error {
   name = "UserNotFoundError";
-  userID: TelegramUserID;
+  userID: UserID;
+  tgUserID: TelegramUserID;
 
-  constructor(message: string, userID: TelegramUserID) {
+  constructor(message: string, userID: UserID, tgUserID: TelegramUserID) {
     super(message); // Pass the message
     this.userID = userID;
+    this.tgUserID = tgUserID;
   }
 }

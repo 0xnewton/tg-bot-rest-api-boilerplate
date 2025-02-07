@@ -16,6 +16,7 @@ export enum Role {
   Admin = "admin",
   Editor = "editor",
   Viewer = "viewer",
+  Revoked = "revoked",
 }
 export interface UserRole {
   role: Role;

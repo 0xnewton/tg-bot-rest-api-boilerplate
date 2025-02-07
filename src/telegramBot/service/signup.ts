@@ -1,10 +1,10 @@
 import { logger } from "firebase-functions";
-import { Context } from "telegraf";
 import * as userService from "../../users/service";
 import { UserExistsError } from "../../users/errors";
 import { TelegramUserID } from "../../lib/types";
+import { BotContext } from "../types";
 
-export const signup = async (ctx: Context) => {
+export const signup = async (ctx: BotContext) => {
   ctx.reply("Welcome to Shark Pay!");
 
   const userID = ctx.from?.id;

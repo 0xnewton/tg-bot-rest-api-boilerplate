@@ -12,15 +12,15 @@ export interface CreateAPIKeyParams {
 }
 
 export interface CreateAPIKeyResponse {
-  stored: FetchResult<APIKey>;
-  key: string;
+  key: FetchResult<APIKey>;
+  secretValue: string;
 }
 export const create = async (
   params: CreateAPIKeyParams
 ): Promise<CreateAPIKeyResponse> => {
   logger.info("Create API service request hit", { params });
-  const key = generateAPIKey();
-  const hash = hashWithSHA512(key);
+  const secretValue = generateAPIKey();
+  const hash = hashWithSHA512(secretValue);
   // Make sure it does not exist
   const [existingKey, keyCount] = await Promise.all([
     getAPIKeyByHash({ hash }),
@@ -52,5 +52,5 @@ export const create = async (
     organizationID: apiKey.data.organizationID,
   });
 
-  return { stored: apiKey, key };
+  return { key: apiKey, secretValue };
 };
