@@ -36,6 +36,11 @@ export const createAPIKey = async (
 interface GetAPIKeyByHashParams {
   hash: string;
 }
+/**
+ * Fetches an api key from its hash. Warning: the key could be revoked
+ * @param params - The hash of the secret key
+ * @returns The API key in database or null if not found
+ */
 export const getAPIKeyByHash = async (
   params: GetAPIKeyByHashParams
 ): Promise<FetchResult<APIKey> | null> => {
@@ -53,7 +58,12 @@ export const getAPIKeyByHash = async (
 export const getAPIKeyCount = async (
   organizationID: OrganizationID
 ): Promise<number> => {
-  const collection = getAPIKeyCollection(organizationID);
+  const revokedAtField: keyof APIKey = "revokedAt";
+  const collection = getAPIKeyCollection(organizationID).where(
+    revokedAtField,
+    "==",
+    null
+  );
   const aggCount = collection.count();
   const snapshot = await aggCount.get();
   return snapshot.data().count;

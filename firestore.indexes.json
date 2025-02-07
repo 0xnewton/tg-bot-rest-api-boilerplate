@@ -8,6 +8,18 @@
         "queryScope": "COLLECTION_GROUP",
         "order": "ASCENDING"
       }]
+    },
+    {
+      "collectionGroup": "APIKeys",
+      "fieldPath": "revokedAt",
+      "indexes": [{
+        "queryScope": "COLLECTION_GROUP",
+        "order": "DESCENDING"
+      },
+      {
+        "queryScope": "COLLECTION",
+        "order": "DESCENDING"
+      }]
     }
   ]
 }
