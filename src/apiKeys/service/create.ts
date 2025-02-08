@@ -1,5 +1,5 @@
 import { logger } from "firebase-functions";
-import { generateAPIKey, hashWithSHA256 } from "../../lib/core";
+import { generateAPIKey, hashWithHMAC } from "../../lib/core";
 import { FetchResult, OrganizationID, UserID } from "../../lib/types";
 import { createAPIKey, getAPIKeyByHash, getAPIKeyCount } from "../db";
 import { APIKey } from "../types";
@@ -20,7 +20,7 @@ export const create = async (
 ): Promise<CreateAPIKeyResponse> => {
   logger.info("Create API service request hit", { params });
   const secretValue = generateAPIKey();
-  const hash = hashWithSHA256(secretValue);
+  const hash = hashWithHMAC(secretValue);
   // Make sure it does not exist
   const [existingKey, keyCount] = await Promise.all([
     getAPIKeyByHash({ hash }),

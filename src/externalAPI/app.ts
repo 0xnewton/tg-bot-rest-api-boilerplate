@@ -3,7 +3,7 @@ import * as express from "express";
 import * as cors from "cors";
 import { demo } from "./handlers";
 import { validateAPIKey, limiter, speedLimiter } from "./middleware";
-import { apiKeySalt } from "../lib/core";
+import { apiKeyHMACSecret } from "../lib/core";
 
 const app = express();
 
@@ -27,7 +27,7 @@ app.post("/demo", demo);
 export const api = onRequest(
   {
     timeoutSeconds: 120,
-    secrets: [apiKeySalt],
+    secrets: [apiKeyHMACSecret],
     minInstances: 1,
   },
   app
