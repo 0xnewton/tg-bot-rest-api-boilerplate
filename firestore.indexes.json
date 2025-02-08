@@ -4,22 +4,32 @@
     {
       "collectionGroup": "APIKeys",
       "fieldPath": "hash",
-      "indexes": [{
-        "queryScope": "COLLECTION_GROUP",
-        "order": "ASCENDING"
-      }]
+      "indexes": [
+        {
+          "queryScope": "COLLECTION_GROUP",
+          "order": "ASCENDING"  
+        }
+      ]
     },
     {
       "collectionGroup": "APIKeys",
       "fieldPath": "revokedAt",
-      "indexes": [{
-        "queryScope": "COLLECTION_GROUP",
-        "order": "DESCENDING"
-      },
-      {
-        "queryScope": "COLLECTION",
-        "order": "DESCENDING"
-      }]
+      "indexes": [
+        {
+          "queryScope": "COLLECTION",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Users",
+      "fieldPath": "telegramUserID",
+      "indexes": [
+        {
+          "queryScope": "COLLECTION",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ]
 }

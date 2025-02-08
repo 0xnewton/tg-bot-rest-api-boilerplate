@@ -76,7 +76,7 @@ export const generateAPIKey = async (ctx: BotContext) => {
   }
 
   ctx.reply(
-    `API Key generated successfully!\n\nKey: ${key.data.id}\nSecret: ${secretValue}. Please store it securely. We will never show it to you again.`
+    `Here's your API key. Store it securely!\n\n API Key: ${secretValue}.\n\nWe will never show it to you again.`
   );
 
   logger.info("API key generated", {
