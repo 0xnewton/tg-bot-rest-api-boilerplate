@@ -1,4 +1,3 @@
-import { DocumentReference } from "firebase-admin/firestore";
 import { Brand } from "./utils";
 
 export enum DBCollections {
@@ -6,11 +5,6 @@ export enum DBCollections {
   APIKeys = "APIKeys",
   Users = "Users",
 }
-
-export type FetchResult<T> = {
-  data: T;
-  ref: DocumentReference<T>;
-};
 
 export type OrganizationID = Brand<string, "OrganizationID">;
 export type UserID = Brand<string, "UserID">;

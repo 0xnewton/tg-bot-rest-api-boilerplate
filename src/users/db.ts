@@ -1,10 +1,5 @@
 import { logger } from "firebase-functions";
-import {
-  FetchResult,
-  OrganizationID,
-  TelegramUserID,
-  UserID,
-} from "../lib/types";
+import { OrganizationID, TelegramUserID, UserID } from "../lib/types";
 import { User } from "./types";
 import {
   db,
@@ -14,26 +9,24 @@ import {
 } from "../lib/core";
 import { Organization } from "../organizations/types";
 
-export const getUserByID = async (
-  userID: UserID
-): Promise<FetchResult<User> | null> => {
+export const getUserByID = async (userID: UserID): Promise<User | null> => {
   logger.info("Fetching user by user id", { userID });
   const user = await getUserRef(userID).get();
   const data = user.data();
   if (!user.exists || !data) {
     return null;
   }
-  return { data, ref: user.ref };
+  return data;
 };
 
 export const getUserByTelegramUserID = async (
   tgUserID: TelegramUserID
-): Promise<FetchResult<User> | null> => {
+): Promise<User | null> => {
   logger.info("Fetching user by telegram user id", { tgUserID });
   const key: keyof User = "telegramUserID";
   const user = await getUserCollection().where(key, "==", tgUserID).get();
   const docs = user.docs.map((doc) => {
-    return { data: doc.data(), ref: doc.ref };
+    return doc.data();
   });
   return docs[0] || null;
 };
@@ -52,8 +45,8 @@ interface CreateUserParams {
 export const createUserWithOrganization = async (
   params: CreateUserParams
 ): Promise<{
-  user: FetchResult<User>;
-  organization: FetchResult<Organization>;
+  user: User;
+  organization: Organization;
 }> => {
   logger.info("Creating user", { params });
   const nowTimestamp = Date.now();
@@ -87,13 +80,7 @@ export const createUserWithOrganization = async (
   });
 
   return {
-    user: {
-      data: userBody,
-      ref: userRef,
-    },
-    organization: {
-      data: organizationBody,
-      ref: organizationRef,
-    },
+    user: userBody,
+    organization: organizationBody,
   };
 };

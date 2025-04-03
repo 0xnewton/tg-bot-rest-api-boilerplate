@@ -18,7 +18,7 @@ export const validateAPIKey = async (
 
   try {
     const { organization } = await apiKeyService.validate(apiKey);
-    req.organization = organization.data;
+    req.organization = organization;
   } catch (err) {
     logger.debug("Error validating API key", { error: err });
     res.status(401).send("Unauthorized");

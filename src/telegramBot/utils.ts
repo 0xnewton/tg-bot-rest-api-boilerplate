@@ -2,7 +2,7 @@ import { Context } from "telegraf";
 import { CustomClaims, User, UserRole } from "../users/types";
 import { logger } from "firebase-functions";
 import * as userService from "../users/service";
-import { FetchResult, OrganizationID, TelegramUserID } from "../lib/types";
+import { OrganizationID, TelegramUserID } from "../lib/types";
 import { TGUserNotFoundError } from "../users/errors";
 import { generateUserIDFromTelegramID, isReadableRole } from "../users/utils";
 import { UserWithClaims } from "./types";
@@ -28,7 +28,7 @@ export const getUserFromContext = async (
     throw new Error("Unable to retrieve your user details. Please try again.");
   }
 
-  let user: FetchResult<User> | null = null;
+  let user: User | null = null;
   let parsedClaims: CustomClaims | null = null;
   const expectedUserID = generateUserIDFromTelegramID(
     context.from.id as TelegramUserID
@@ -96,7 +96,7 @@ export const getUserOrganization = async (
   user: UserWithClaims,
   organizationID?: OrganizationID
 ): Promise<{
-  organization: FetchResult<Organization>;
+  organization: Organization;
   role: UserRole;
 }> => {
   // Matches an organizationID passed in, or selects the first in the list
@@ -120,7 +120,7 @@ export const getUserOrganization = async (
     throw new Error(SOMETHING_WENT_WRONG_MESSAGE);
   }
 
-  let organization: FetchResult<Organization> | null = null;
+  let organization: Organization | null = null;
   try {
     organization = await organizationService.getByID(userRole.organizationID);
   } catch (err: any) {
@@ -134,7 +134,7 @@ export const getUserOrganization = async (
   if (!organization) {
     logger.error("Organization not found", {
       organizationID: userRole.organizationID,
-      userID: user.user.data.id,
+      userID: user.user.id,
       userRole,
     });
     throw new Error(SOMETHING_WENT_WRONG_MESSAGE);

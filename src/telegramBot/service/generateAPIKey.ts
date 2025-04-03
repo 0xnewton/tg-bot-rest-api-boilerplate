@@ -1,6 +1,5 @@
 import { logger } from "firebase-functions/v1";
 import { BotContext, UserWithClaims } from "../types";
-import { FetchResult } from "../../lib/types";
 import { UserRole } from "../../users/types";
 import {
   getUserFromContext,
@@ -39,10 +38,7 @@ export const generateAPIKey = async (ctx: BotContext) => {
   let role: UserRole;
   // default to
   try {
-    ({
-      organization: { data: organization },
-      role,
-    } = await getUserOrganization(userDetails));
+    ({ organization, role } = await getUserOrganization(userDetails));
   } catch (err: any) {
     logger.error("Error fetching organization", {
       errMessage: err?.message,
@@ -57,12 +53,12 @@ export const generateAPIKey = async (ctx: BotContext) => {
     return;
   }
 
-  let key: FetchResult<APIKey>;
+  let key: APIKey;
   let secretValue: string;
   try {
     // Generate the API key
     ({ key, secretValue } = await apiKeyService.create({
-      userID: userDetails.user.data.id,
+      userID: userDetails.user.id,
       organizationID: organization.id,
     }));
   } catch (err: any) {
@@ -80,8 +76,8 @@ export const generateAPIKey = async (ctx: BotContext) => {
   );
 
   logger.info("API key generated", {
-    key: key.data.id,
-    userID: userDetails.user.data.id,
+    key: key.id,
+    userID: userDetails.user.id,
     organizationID: organization.id,
   });
 
