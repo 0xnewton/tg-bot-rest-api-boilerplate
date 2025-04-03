@@ -1,6 +1,7 @@
 import { Telegraf, Context } from "telegraf";
 import * as botService from "./service";
 import { TelegrafBot } from "./types";
+import { tgBotAPIKey } from "../lib/core";
 
 enum Commands {
   start = "start",
@@ -22,9 +23,14 @@ const commands = [
 // Define as a singleton
 let bot: TelegrafBot | null = null;
 
-export const initializeBot = (apiKey: string): TelegrafBot => {
+export const getBot = (): TelegrafBot => {
   if (bot) {
     return bot;
+  }
+
+  const apiKey = tgBotAPIKey.value();
+  if (!apiKey) {
+    throw new Error("Telegram bot API key is not set");
   }
 
   bot = new Telegraf<Context>(apiKey);
